@@ -54,7 +54,7 @@ Kafka自带了一个命令行客户端可以接收文件或者标注输入然后
 
 启动发送者，在控制台发送消息给服务端：
 
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+_**`bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test`**_
 
 此时控制台就进入交互模式，允许你从控制台输入内容，回车键后默认发送改行内容为消息到服务器。如：
 
@@ -70,13 +70,11 @@ This is the second message
 
 启动消费者，可以在控制台看到收到的消息被实时输出：
 
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+_**`bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning`**_
 
 This is the first message
 
 This is the second message
 
 如下图：实时输出了收到的消息：![](/assets/import2-5.png)
-
-
 
