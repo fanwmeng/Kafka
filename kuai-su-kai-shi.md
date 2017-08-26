@@ -48,7 +48,7 @@ Kafka使用了Zookeeper来存储管理信息，所以首先需要一个Zookeeper
 
 test
 
-四、发送消息
+## 四、发送消息
 
 Kafka自带了一个命令行客户端可以接收文件或者标注输入然后作为消息发送到Kafka集群。默认的，每一行内容被当做一个消息。
 
@@ -64,7 +64,7 @@ This is the second message
 
 如下图：![](/assets/import2-4.png)
 
-五、接收消息
+## 五、接收消息
 
 同上，Kafka自带了一个命令行消费者将会接收到的消息输出到标准输出。
 
@@ -78,7 +78,7 @@ This is the second message
 
 如下图：实时输出了收到的消息：![](/assets/import2-5.png)
 
-六、启动多节点的集群
+## 六、启动多节点的集群
 
 到目前为止，我们已经成功的运行了一个节点\(broker，这里把broker翻译成节点，也许不太合适，其实就是一个Kafka的运行实例\)的Kafka，但这没啥意思。对Kafka来说，一个单独的节点\(broker\)就是容量为1的一个集群，所以集群模式无非就是多个实例，其他并没有什么不同。为了体验一下，我们将我们的集群扩为3个节点\(仍然还是在我们本地机器上\)。
 
@@ -128,11 +128,93 @@ bin/kafka-server-start.sh config/server-2.properties &       这里将第三个�
 
 创建topic，有三个复制因子
 
-bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic test 
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic test
 
 现在针对这个test主题，集群中有三个节点，如何知道每个节点在做什么呢？可以使用如下命令：
 
 bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test
+
+![](/assets/import2-6.png)
+
+如下是输出的解释，第一行给出了所有分区的一个概况，接下来的每一行是对每一个分区的信息j进行了展示。因为我们只有一个分区，所以接下来只有一行。
+
+Topic：主题名字
+
+Partition：分区号，从0开始，只有一个分区
+
+Leader：所有节点中作为Leader的节点，节点号就是在server.properties中配置的broker.id的值。Leader是负责对所有的读写请求响应的节点。分区中的所有节点随机选择一个作为Leader。
+
+Replicas：列出所有复制此分区日志的节点列表。不管这些节点是不是Leader或者是不是存活的。
+
+Isr：是Replicas中处于同步的集合。这是Replicas的一个子集，就是存活的节点并且和Leader保持一致的节点。
+
+通过截图可知，主题test唯一的分区的Leader节点是0
+
+也是如上四中所说，启动producer发送消息到test主题。因为Leader是节点0，所以我们发送消息给0节点，而不是1和2节点。
+
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test     完成后输入了msg11作为消息，如下图
+
+![](/assets/import2-8.png)
+
+启动消费者，指定leader的端口号消费：
+
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic test  从最开始接收消息，如下图：
+
+![](/assets/import2-9.png)
+
+如果不是从最开始消费消息，而是从指定的偏移量开始，可以使用--offset &lt;String : consumer offset&gt;,如果使用了此选项，则必须使用--partition来制定那个分区。offset中的String，可以是"earliest"代表从最开始的消息或者"latest"\(默认值\)代表从最新的消息开始消费。如果是数字，则是一个非负整数,从0开始，表示第一条消息。如果该值大于消息总数+1，那么也是从最新的消息开始。如下图：
+
+![](/assets/import2-10.png)
+
+现在来看一下容错性，节点1是Leader，我们现在将该进程停掉。
+
+ps -ef \| grep "server.properties" 可以看到如下内容：
+
+501  2774   403   0 10:18下午 ttys001    1:08.08 /Library/Java/JavaVirtualMachines/jdk1.8.0\_73.jdk/Contents/Home/bin/java...
+
+可知pid是2774，现在直接kill掉：kill -9 2774
+
+可以看到zookeeper输出了日志：![](/assets/import2-11.png)
+
+而原来的follower节点1的日志如下：
+
+![](/assets/import2-12.png)![](/assets/import2-13.png)
+
+producer日志没有变化，并且继续发送日志仍然是成功的。![](/assets/import2-15.png)
+
+consumer先报错连接不到Leader，然后重新确定Leader后也可以正常接收消息了：如下：![](/assets/import2-15.png)
+
+而看下此时主题test的分区信息：![](/assets/import2-14.png)Leader变为了节点2，活跃节点只有1和2，没有0了。
+
+
+
+七 使用Kafka Connect导入导出数据
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
