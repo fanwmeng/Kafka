@@ -92,21 +92,49 @@ cp server.properties server-2.properties
 
 conf/server-1.properties:
 
-      broker.id=1
+```
+  broker.id=1
 
-      listners=PLAINTEST://9093
+  listners=PLAINTEST://9093
 
-      log.dir=/Users/fwmeng/kafka1
+  log.dir=/Users/fwmeng/kafka1
+```
 
 conf/server-2.properties:
 
-      broker.id=2
+```
+  broker.id=2
 
-      listners=PLAINTEST://9094
+  listners=PLAINTEST://9094
 
-      log.dir=/Users/fwmeng/kafka2
+  log.dir=/Users/fwmeng/kafka2
+```
 
-其中broker.id属性是集群中每个节点唯一不变的名字。我也也必须覆盖坚挺的端口号和日志目录，因为我们运行的三个节点都在同一台机器上，所以我们必须保证所有的节点不能去注册相同的端口和复写别人的数据。
+其中broker.id属性是集群中每个节点唯一不变的名字。我也也必须覆盖坚挺的端口号和日志目录，因为我们运行的三个节点都在同一台机器上，所以我们必须保证所有的节点不能去注册相同的端口和覆写别人的数据。
+
+之前已经运行过test主题的服务，已经存在日志了，如果要测试，需要将原来的数据删除，或者创建一个新的主题。这里采用了前者。
+
+还是如二中所述，先启动zookeeper服务:
+
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+启动三个kafka的broker，分别指定使用不同的配置文件：
+
+bin/kafka-server-start.sh config/server.properties
+
+bin/kafka-server-start.sh config/server-1.properties
+
+bin/kafka-server-start.sh config/server-2.properties &       这里将第三个实例使用后台方式启动运行。
+
+创建topic，有三个复制因子
+
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic test 
+
+现在针对这个test主题，集群中有三个节点，如何知道每个节点在做什么呢？可以使用如下命令：
+
+bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test
+
+
 
 
 
