@@ -54,7 +54,7 @@ Kafka自带了一个命令行客户端可以接收文件或者标注输入然后
 
 启动发送者，在控制台发送消息给服务端：
 
-_**`bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test`**_
+`bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test`
 
 此时控制台就进入交互模式，允许你从控制台输入内容，回车键后默认发送改行内容为消息到服务器。如：
 
@@ -70,11 +70,45 @@ This is the second message
 
 启动消费者，可以在控制台看到收到的消息被实时输出：
 
-_**`bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning`**_
+`bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning`
 
 This is the first message
 
 This is the second message
 
 如下图：实时输出了收到的消息：![](/assets/import2-5.png)
+
+六、启动多节点的集群
+
+到目前为止，我们已经成功的运行了一个节点\(broker，这里把broker翻译成节点，也许不太合适，其实就是一个Kafka的运行实例\)的Kafka，但这没啥意思。对Kafka来说，一个单独的节点\(broker\)就是容量为1的一个集群，所以集群模式无非就是多个实例，其他并没有什么不同。为了体验一下，我们将我们的集群扩为3个节点\(仍然还是在我们本地机器上\)。
+
+首先，给每个节点准备一个配置文件，直接复制已有的即可，不过里面有些配置属性要改一下三个节点，保留原来的配置文件作为第一个节点使用，另外copy两个配置文件作为第二个、第三个节点的配置文件只用
+
+cp server.properties server-1.properties
+
+cp server.properties server-2.properties
+
+编辑这两个配置文件，主要是要改一下broker.id、监听的端口号、日志存放目录，如下
+
+conf/server-1.properties:
+
+      broker.id=1
+
+      listners=PLAINTEST://9093
+
+      log.dir=/Users/fwmeng/kafka1
+
+conf/server-2.properties:
+
+      broker.id=2
+
+      listners=PLAINTEST://9094
+
+      log.dir=/Users/fwmeng/kafka2
+
+其中broker.id属性是集群中每个节点唯一不变的名字。我也也必须覆盖坚挺的端口号和日志目录，因为我们运行的三个节点都在同一台机器上，所以我们必须保证所有的节点不能去注册相同的端口和复写别人的数据。
+
+
+
+
 
