@@ -192,9 +192,7 @@ Kafka Connect是Kafka自带的用于导入导出数据的工具。它是运行�
 
 首先，创建用于测试的种子数据：这些数据放在指定的文件中，腰背导入到Kafka中。
 
-_**`echo  -e "first line\nsecond line" > test.txt`**_
+`echo  -e "first line\nsecond line" > test.txt`
 
-接下来，采用standalone模式
-
-
+接下来，采用standalone模式运行两个连接器，也就是它们运行在本地独立的专用进程中。我们提供三个参数化的配置文件。
 
