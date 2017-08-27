@@ -208,5 +208,7 @@ Kafka Connect是Kafka自带的用于导入导出数据的工具。它是运行�
 
 ## 八、使用Kafka Stream处理数据
 
-Kafka Stream是构建关键实时应用和微服务的客户端库。，其输入和输出数据存储在Kafka集群中。Kafka Stream 将客户端编写的简单性和部署标准Java、Scala应用程序与Kafka服务端
+Kafka Stream是构建关键实时应用和微服务的客户端库。，其输入和输出数据存储在Kafka集群中。Kafka Stream 将客户端编写的简单性和部署标准Java、Scala应用程序与Kafka服务端集群技术的优势相结合，使得这些应用具有高可扩展、易伸缩、容错性、分布式等特点。此快速入门示例将演示在这个库中如何运行流式代码。
+
+具体文档参考文档-Kafka流章节。
 
