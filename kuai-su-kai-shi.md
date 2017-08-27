@@ -188,5 +188,13 @@ consumer先报错连接不到Leader，然后重新确定Leader后也可以正常
 
 从终端写入数据到Kafka或者将数据写回到控制台可以很方便的开始kafka使用。但或许你希望从使用其它来源的数据或将数据从Kafka导出到其他系统。对很多系统来说，你可以使用Kafka Connect导入导出数据，而不用写集成代码。
 
-Kafka Connect是Kafka自带的用于导入导出数据的工具。它是运行了连接器\(Connector\)的可扩展工具，连接器实现了和外部系统交互的自定义逻辑。
+Kafka Connect是Kafka自带的用于导入导出数据的工具。它是运行了连接器\(Connector\)的可扩展工具，连接器实现了和外部系统交互的自定义逻辑。在本节的内容，列出如何运行一个带有简单连接器的Kafka Connect来实现将数据从文件导入到一个Kafka主题中，以及将数据从Kafka主题导出到一个文件中。
+
+首先，创建用于测试的种子数据：这些数据放在指定的文件中，腰背导入到Kafka中。
+
+_**`echo  -e "first line\nsecond line" > test.txt`**_
+
+接下来，采用standalone模式
+
+
 
