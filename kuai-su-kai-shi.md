@@ -176,9 +176,7 @@ ps -ef \| grep "server.properties" 可以看到如下内容：
 
 可以看到zookeeper输出了日志：![](/assets/import2-11.png)
 
-而原来的follower节点1的日志如下：
-
-![](/assets/import2-12.png)![](/assets/import2-13.png)
+而原来的follower节点1的日志如下：![](/assets/import2-12.png)![](/assets/import2-13.png)
 
 producer日志没有变化，并且继续发送日志仍然是成功的。![](/assets/import2-15.png)
 
@@ -186,39 +184,9 @@ consumer先报错连接不到Leader，然后重新确定Leader后也可以正常
 
 而看下此时主题test的分区信息：![](/assets/import2-14.png)Leader变为了节点2，活跃节点只有1和2，没有0了。
 
+## 七 使用Kafka Connect导入导出数据
 
+从终端写入数据到Kafka或者将数据写回到控制台可以很方便的开始kafka使用。但或许你希望从使用其它来源的数据或将数据从Kafka导出到其他系统。对很多系统来说，你可以使用Kafka Connect导入导出数据，而不用写集成代码。
 
-七 使用Kafka Connect导入导出数据
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Kafka Connect是Kafka自带的用于导入导出数据的工具。它是运行了连接器\(Connector\)的可扩展工具，连接器实现了和外部系统交互的自定义逻辑。
 
