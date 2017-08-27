@@ -132,9 +132,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 -
 
 现在针对这个test主题，集群中有三个节点，如何知道每个节点在做什么呢？可以使用如下命令：
 
-bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test
-
-![](/assets/import2-6.png)
+bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test![](/assets/import2-6.png)
 
 如下是输出的解释，第一行给出了所有分区的一个概况，接下来的每一行是对每一个分区的信息j进行了展示。因为我们只有一个分区，所以接下来只有一行。
 
@@ -158,13 +156,9 @@ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test     完�
 
 启动消费者，指定leader的端口号消费：
 
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic test  从最开始接收消息，如下图：
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic test  从最开始接收消息，如下图：![](/assets/import2-9.png)
 
-![](/assets/import2-9.png)
-
-如果不是从最开始消费消息，而是从指定的偏移量开始，可以使用--offset &lt;String : consumer offset&gt;,如果使用了此选项，则必须使用--partition来制定那个分区。offset中的String，可以是"earliest"代表从最开始的消息或者"latest"\(默认值\)代表从最新的消息开始消费。如果是数字，则是一个非负整数,从0开始，表示第一条消息。如果该值大于消息总数+1，那么也是从最新的消息开始。如下图：
-
-![](/assets/import2-10.png)
+如果不是从最开始消费消息，而是从指定的偏移量开始，可以使用--offset &lt;String : consumer offset&gt;,如果使用了此选项，则必须使用--partition来制定那个分区。offset中的String，可以是"earliest"代表从最开始的消息或者"latest"\(默认值\)代表从最新的消息开始消费。如果是数字，则是一个非负整数,从0开始，表示第一条消息。如果该值大于消息总数+1，那么也是从最新的消息开始。如下图：![](/assets/import2-10.png)
 
 现在来看一下容错性，节点1是Leader，我们现在将该进程停掉。
 
@@ -195,6 +189,26 @@ Kafka Connect是Kafka自带的用于导入导出数据的工具。它是运行�
 `echo  -e "foo\nbar" > test.txt`
 
 接下来，采用standalone模式运行两个连接器，也就是它们运行在本地独立的专用进程中。我们提供三个参数化的配置文件。第一个是Kafka Connect的配置，包含通用的配置如连接到哪个Kafka节点，以及数据序列化的格式。剩下的两个配置文件，每个配置文件指定一个创建的连接器的信息。这些文件信息包括一个唯一的连接器名称、需要实例化的连机器类以及其他连机器所需的配置信息。
+
+执行如下命令，启动connector：
+
+bin/connect-standalone.sh config/connect-standalone.properties config/config-file-source.properties config/config-file-sink.properties 
+
+输出信息较多，只截图部分如下：![](/assets/import2-17.png)
+
+上述简单的配置文件已经被包含在Kafka的发行包中，它们将使用默认的之前我们启动的本地集群配置创建两个connector：第一个作为源connector从一个文件中读取每行数据然后将他们发送Kafka的topic，第二个是一个输出\(sink\)connector从Kafka的topic读取消息，然后将它们输出成输出文件的一行行的数据。在启动的过程你讲看到一些日志消息，包括一些提示connector正在被实例化的信息。一旦Kafka Connect进程启动以后，源connector应该开始从`test.txt`中读取数据行，并将他们发送到topic`connect-test`上，然后输出connector将会开始从topic读取消息然后把它们写入到`test.sink.txt`中。
+
+注意：根据官方文档，这么做后并没有将信息输出到test-sink.txt中。但是每次向test.txt中写入数据，会看到offset的提交日志输出来。如下图：![](/assets/import2-18.png)
+
+启动控制台消费进程，也没有收到数据：
+
+_**`bin/kafka-console-consumer.sh --bostrap-server localhost:9092 --topic connect-test --from-beginning`**_
+
+如下图：
+
+
+
+
 
 
 
