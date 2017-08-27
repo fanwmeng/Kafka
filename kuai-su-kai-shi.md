@@ -186,13 +186,13 @@ Kafka Connect是Kafka自带的用于导入导出数据的工具。它是运行�
 
 首先，创建用于测试的种子数据：这些数据放在指定的文件中，腰背导入到Kafka中。
 
-`echo  -e "foo\nbar" > test.txt`
+_**`echo  -e "foo\nbar" > test.txt`**_
 
 接下来，采用standalone模式运行两个连接器，也就是它们运行在本地独立的专用进程中。我们提供三个参数化的配置文件。第一个是Kafka Connect的配置，包含通用的配置如连接到哪个Kafka节点，以及数据序列化的格式。剩下的两个配置文件，每个配置文件指定一个创建的连接器的信息。这些文件信息包括一个唯一的连接器名称、需要实例化的连机器类以及其他连机器所需的配置信息。
 
 执行如下命令，启动connector：
 
-bin/connect-standalone.sh config/connect-standalone.properties config/config-file-source.properties config/config-file-sink.properties 
+_**`bin/connect-standalone.sh config/connect-standalone.properties config/config-file-source.properties config/config-file-sink.properties`**_
 
 输出信息较多，只截图部分如下：![](/assets/import2-17.png)
 
@@ -202,13 +202,11 @@ bin/connect-standalone.sh config/connect-standalone.properties config/config-fil
 
 启动控制台消费进程，也没有收到数据：
 
-_**`bin/kafka-console-consumer.sh --bostrap-server localhost:9092 --topic connect-test --from-beginning`**_
+`bin/kafka-console-consumer.sh --bostrap-server localhost:9092 --topic connect-test --from-beginning`
 
-如下图：
+如下图：![](/assets/import2-19.png)
 
-
-
-
+## 八、使用Kafka Stream处理数据
 
 
 
