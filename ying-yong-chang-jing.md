@@ -1,4 +1,20 @@
-应用场景
+# 应用场景
 
-本章主要介绍几种主流的Apache Kafka的应用场景。对这些场景的具体实践的介绍，可以参考[这篇博客](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
+## 消息
+
+本章主要介绍几种主流的Apache Kafka的应用场景。对这些场景的具体实践的介绍，可以参考[这篇博客](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) 。
+
+Kafka作为传统消息中间件的替代者，表现是不错的。有许多原因导致使用消息中间件如解耦数据生产者和消费者，存储未处理的消息等等。与多数消息系统相比，Kafka有更好的吞吐量，内置分区，赋值和容错能力，这使Kafka对大规模消息处理应用来说是一个很好的解决方案。
+
+据我们的经验，消息使用通常吞吐量是相对较低的，但或许需要端对端的低延迟，并十分依赖与Kafka提供的强大的持久性存储保证。
+
+在这方面，Kafka经常拿来与传统消息系统如ActiveMQ或者RabbitMQ相比较。
+
+## 网站活动追踪
+
+Kafka原始的使用场景是能够重新构建一个用户活动追踪管道作为一系列实时发布订阅源。这意味着网站活动\(如页面访问，搜索和用户采取的其他操作\)被发布到每个活动类型都作为一个主题的中心主题。这些数据源在一系列不同的场景中都可以被订阅到，如实时处理，实时监控，拉取数据到Hadoop或者离线数据仓储系统来做离线处理和报表。
+
+活动追踪是非常高频率的以为活动消息是有每个用户的页面访问产生的。
+
+
 
