@@ -16,5 +16,23 @@ Kafka通过语言独立的协议对外暴漏了所有这些功能，这些协议
 
 2.1 生产者API
 
+生产者API允许应用发送数据流到Kafka集群中。Kafka生产者使用手册地址为_**\(https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html\)**_
+
+为使用生产者，使用如下的maven依赖引入jar包
+
+`<dependency>`
+
+`         <groupId>org.apache.kafka</groupId>`
+
+`         <artifactId>kafka-clients</artifactId>`
+
+`         <version>0.11.0.0</version>`
+
+`</dependency>`
+
+2.2 消费者API
+
+
+
 
 
