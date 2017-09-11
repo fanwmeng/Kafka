@@ -16,39 +16,67 @@ Kafka通过语言独立的协议对外暴漏了所有这些功能，这些协议
 
 ## 2.1 生产者API
 
-生产者API允许应用发送数据流到Kafka集群中。Kafka生产者使用手册地址为_**\(**_[https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html\)_**\)**_
+生产者API允许应用发送数据流到Kafka集群中。Kafka生产者使用手册地址为_**\(**_[https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html%29_**\)\*\*\_
 
 为使用生产者，使用如下的maven依赖引入jar包
 
 &lt;dependency&gt;
 
-    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+```
+&lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
 
-    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
+&lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
 
-    &lt;version&gt;0.11.0.0&lt;/version&gt;
+&lt;version&gt;0.11.0.0&lt;/version&gt;
+```
 
 &lt;/dependency&gt;
 
 ## 2.2 消费者API
 
-消费者API允许应用读取Kafka集群中主题的数据流。Kafka消费者使用手册地址为\(https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html\)
+消费者API允许应用读取Kafka集群中主题的数据流。Kafka消费者使用手册地址为\([https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html\)\)
 
 使用如下maven配置引入消费者依赖：
 
 &lt;dependency&gt;
 
-    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+```
+&lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
 
-    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
+&lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
 
-    &lt;version&gt;0.11.0.0&lt;/version&gt;
+&lt;version&gt;0.11.0.0&lt;/version&gt;
+```
 
 &lt;/dependency&gt;
 
 ## 2.3 流API
 
-流API允许从输入主题传输数据到输出主题
+流API允许从输入主题传输数据到输出主题。
+
+使用流API库的使用手册地址为:
+
+\(https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/streams/KafkaStreams.html\)
+
+使用如下的maven配置引入Kafka流
+
+&lt;dependency&gt;
+
+    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+
+    &lt;artifactId&gt;kafka-streams&lt;/artifactId&gt;
+
+    &lt;version&gt;0.11.0.0&lt;/version&gt;
+
+&lt;/dependency&gt;
+
+2.4 连接API
+
+连接API允许实现连接器，这些连接器持续的从某些数据源系统拉取数据到Kafka或者将数据从Kafka推送到某些相关联的数据系统。
+
+很多连接使用者没必要直接使用这些API，而是可以使用预构建的连接器而不需要编写任何代码。连接的文档请参见 **Kafka连接**一节.
+
+如果想实现用户连接器，参考文档\(https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/connect\)
 
 
 
