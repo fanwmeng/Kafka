@@ -56,7 +56,7 @@ Kafka通过语言独立的协议对外暴漏了所有这些功能，这些协议
 
 使用流API库的使用手册地址为:
 
-\([https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/streams/KafkaStreams.html\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/streams/KafkaStreams.html\)\)
+\([https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/streams/KafkaStreams.html\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/streams/KafkaStreams.html%29\)
 
 使用如下的maven配置引入Kafka流
 
@@ -78,9 +78,9 @@ Kafka通过语言独立的协议对外暴漏了所有这些功能，这些协议
 
 很多连接使用者没必要直接使用这些API，而是可以使用预构建的连接器而不需要编写任何代码。连接的文档请参见 **Kafka连接**一节.
 
-如果想实现用户连接器，参考文档\([https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/connect\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/connect\)\)
+如果想实现用户连接器，参考文档\([https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/connect\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/connect%29\)
 
-2.5 客户端管理员API
+## 2.5 客户端管理员API
 
 客户端管理员API支持管理和监控主题、节点、acls和其他kafka对象。
 
@@ -88,11 +88,19 @@ Kafka通过语言独立的协议对外暴漏了所有这些功能，这些协议
 
 &lt;dependency&gt;
 
-    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+```
+&lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
 
-    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
+&lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
 
-    &lt;version&gt;0.11.0.0&lt;/version&gt;
+&lt;version&gt;0.11.0.0&lt;/version&gt;
+```
 
 &lt;/dependency&gt;
+
+2.6 遗留API
+
+低版本更有限制的生产者和消费者API也包含在Kafka中。这些老式Scala语言的APIs已经被弃用了，现在保留只是为了兼容性。更多信息可以参考文档:\(https://kafka.apache.org/081/documentation.html\#producerapi\)
+
+
 

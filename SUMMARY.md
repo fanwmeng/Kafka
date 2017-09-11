@@ -8,4 +8,5 @@
   * [软件生态](wen-dang/wen-dang.md)
   * [升级](wen-dang/sheng-ji.md)
   * [API](wen-dang/api.md)
+  * 配置
 
