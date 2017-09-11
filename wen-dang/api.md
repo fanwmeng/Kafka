@@ -14,23 +14,41 @@ Kafka有伍哥核心api：
 
 Kafka通过语言独立的协议对外暴漏了所有这些功能，这些协议都有各种语言版本的客户端。但是只有Java客户端是在Kafka项目中集成维护的，其他语言的客户端都是作为独立的开源项目。个语言客户端可在如下地址中查看\([https://cwiki.apache.org/confluence/display/KAFKA/Clients\)。](https://cwiki.apache.org/confluence/display/KAFKA/Clients%29。)
 
-2.1 生产者API
+## 2.1 生产者API
 
-生产者API允许应用发送数据流到Kafka集群中。Kafka生产者使用手册地址为_**\(https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html\)**_
+生产者API允许应用发送数据流到Kafka集群中。Kafka生产者使用手册地址为_**\(**_[https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html\](https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html\)_**\)**_
 
 为使用生产者，使用如下的maven依赖引入jar包
 
-`<dependency>`
+&lt;dependency&gt;
 
-`         <groupId>org.apache.kafka</groupId>`
+    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
 
-`         <artifactId>kafka-clients</artifactId>`
+    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
 
-`         <version>0.11.0.0</version>`
+    &lt;version&gt;0.11.0.0&lt;/version&gt;
 
-`</dependency>`
+&lt;/dependency&gt;
 
-2.2 消费者API
+## 2.2 消费者API
+
+消费者API允许应用读取Kafka集群中主题的数据流。Kafka消费者使用手册地址为\(https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html\)
+
+使用如下maven配置引入消费者依赖：
+
+&lt;dependency&gt;
+
+    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+
+    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
+
+    &lt;version&gt;0.11.0.0&lt;/version&gt;
+
+&lt;/dependency&gt;
+
+## 2.3 流API
+
+流API允许从输入主题传输数据到输出主题
 
 
 
