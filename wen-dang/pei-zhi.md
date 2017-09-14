@@ -48,7 +48,25 @@ PLAINTEXT://myhost:9092,SSL://:9091 CLIENT://0.0.0.0:9092,REPLICATION://localhos
 
 **log.flush.interval.messages**：消息被刷到磁盘之前在分区日志中累积的消息数。
 
-**log.flush.interval.messages**：任意主题中的消息在刷到磁盘之前在内存中的毫秒数。如果没有设置，**log.flush.scheduler.interval.msg**的值将被使用
+**log.flush.interval.ms**：任意主题中的消息在刷到磁盘之前在内存中的毫秒数。如果没有设置，**log.flush.scheduler.interval.msg**的值将被使用。
+
+**log.flush.offset.checkpoint.interval.ms**：我们更新作为日志恢复点的上次更新持久化记录的频率。int类型，默认值是60000ms，即60s。
+
+**log.flush.scheduler.interval.ms**：日志刷新者检查是否有日志刷新到磁盘的频率，以ms计算。long类型的值，默认值是9223372036854775807。
+
+**log.flush.start.offset.checkpoint.interval.ms**：我们更新日志其实偏移量的持久记录的频率。int类型的值，默认是60000ms，即60s。
+
+**log.retention.bytes**：删除日志之前日志的最大大小。long类型，默认值是-1.
+
+**log.retention.hours**：日志删除之前保存的小时数。第三级到log.retention.ms属性。
+
+**log.retention.minutes**：日志删除之前保存的分钟数，第二级别到log.retention.ms的属性，如果没有配置，将使用配置**log.retention.hours**。
+
+**log.retention.ms**：日志删除之前保存的毫秒数，如果没有设置，则使用配置**log.retention.minutes**配置。
+
+**log.roll.hours**：新的日志文件生成之前当前日志文件保存的最大时间\(以小时计\)。第二级别**log.roll.ms**属性的配置。int类型的值，默认值是168，表示保存168个小时。
+
+**log.roll.ms**：新的日志文件生成之前当前文件保存的最大时间\(以毫秒计\)。如果没有设置，则使用**log.roll.hours**的配置。
 
 
 
